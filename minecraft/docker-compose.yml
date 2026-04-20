@@ -7,4 +7,12 @@ services:
     volumes:
       - ./gate/config.yml:/config.yml
       - ./gate/:/gate/
-    network_mode: host
+    ports:
+      - '25565:25565' # Java Edition
+      - '25565:25565/udp' # Java Edition query
+      - '19132:19132/udp' # Geyser listener
+    networks:
+      - minecraft
+
+networks:
+  minecraft:
