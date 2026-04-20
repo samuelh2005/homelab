@@ -12,7 +12,7 @@ config:
     mode: velocity
   bedrock:
     managed: true
-    geyserListenAddress: localhost:19132
+    geyserListenAddress: 0.0.0.0:19132
     floodgateKeyPath: /gate/floodgate.pem
     configOverrides:
       bedrock:
@@ -31,3 +31,6 @@ config:
   forcedHosts:
     "surival.mc.minersonline.uk": ["survival"]
     "modded-creative.mc.minersonline.uk": ["modded-creative"]
+api:
+  enabled: true
+  bind: 0.0.0.0:8080
