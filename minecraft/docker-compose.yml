@@ -1,0 +1,15 @@
+services:
+  gate:
+    image: ghcr.io/minekube/gate/jre:latest
+    restart: unless-stopped
+    volumes:
+      - ./gate/config.yml:/config.yml
+      - ./gate/key.pem:/gate/floodgate.pem
+    ports:
+      - '25565:25565' # Java Edition
+      - '19132:19132/udp' # Geyser listener
+    networks:
+      - minecraft
+
+networks:
+  minecraft:
