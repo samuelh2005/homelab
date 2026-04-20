@@ -29,5 +29,5 @@ config:
   try:
     - lobby-1
   forcedHosts:
-    "surival.mc.minersonline.uk": survival
-    "modded-creative.mc.minersonline.uk": modded-creative
+    "surival.mc.minersonline.uk": ["survival"]
+    "modded-creative.mc.minersonline.uk": ["modded-creative"]
