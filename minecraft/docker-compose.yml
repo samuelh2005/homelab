@@ -11,7 +11,6 @@ services:
       - '25565:25565' # Java Edition
       - '25565:25565/udp' # Java Edition query
       - '19132:19132/udp' # Geyser listener
-      - '8080:8080' # API
     networks:
       - minecraft
 
