@@ -1,8 +1,6 @@
 services:
   gate:
-    build:
-      context: ..
-      dockerfile: ./Dockerfile
+    image: ghcr.io/samuelh2005/miners-online-proxy:latest
     restart: unless-stopped
     volumes:
       - ./gate/config.yml:/config.yml
