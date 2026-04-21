@@ -1,19 +1,26 @@
 services:
   gate:
-    image: ghcr.io/samuelh2005/miners-online-proxy:latest
-    env_file:
-      - gate.env
+    build:
+      context: ..
+      dockerfile: ./Dockerfile
     restart: unless-stopped
     volumes:
       - ./gate/config.yml:/config.yml
-      - ./gate/:/run/
+      - ./gate/branding.yml:/branding.yml
+      - ./gate/:/var/gate/
     ports:
       - '25565:25565' # Java Edition
       - '25565:25565/udp' # Java Edition query
       - '19132:19132/udp' # Geyser listener
       - '8080:8080' # API
+    secrets:
+      - velocity_forwarding_secret
     networks:
       - minecraft
 
 networks:
   minecraft:
+
+secrets:
+  velocity_forwarding_secret:
+    file: ./velocity_forwarding_secret.txt
