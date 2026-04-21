@@ -1,12 +1,12 @@
 services:
   gate:
-    image: ghcr.io/minekube/gate/jre:latest
+    image: ghcr.io/samuelh2005/miners-online-proxy:latest
     env_file:
       - gate.env
     restart: unless-stopped
     volumes:
       - ./gate/config.yml:/config.yml
-      - ./gate/:/gate/
+      - ./gate/:/run/
     ports:
       - '25565:25565' # Java Edition
       - '25565:25565/udp' # Java Edition query
