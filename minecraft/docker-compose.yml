@@ -16,6 +16,40 @@ services:
     networks:
       - minecraft
 
+  lobby-1:
+    image: itzg/minecraft-server:latest
+    restart: unless-stopped
+    environment:
+      EULA: "TRUE"
+      TYPE: "FABRIC"
+      VERSION: "1.21.11"
+      USE_MEOWICE_FLAGS: "true"
+      MAX_MEMORY: "2G"
+
+      REPLACE_ENV_IN_PLACE: "true"
+      REPLACE_ENV_VARIABLE_PREFIX: "CFG_"
+
+      CFG_PROXY_SECRET_FILE: "/run/secrets/velocity_forwarding_secret"
+
+      REMOVE_OLD_MODS: "true"
+      MODRINTH_PROJECTS: |
+        fabric-api:i5tSkVBH
+        fabricproxy-lite:nR8AIdvx
+        ferrite-core:Ii0gP3D8
+        lithium:Ow7wA0kG
+        styled-chat:nW0Cfq7D
+        viafabric:xXnPtaqv
+        viabackwards:1ImS09ar
+        viarewind:lk3NTwIh
+    depends_on:
+      - gate
+    volumes:
+      - ./lobby-config:/config
+    secrets:
+      - velocity_forwarding_secret
+    networks:
+      - minecraft
+
 networks:
   minecraft:
 
