@@ -1,7 +1,6 @@
 services:
   nginx:
     image: namelessmc/nginx:v2.1
-    ports: ['8080:8080']
     volumes:
       - ./web:/data
     depends_on: [php]
@@ -14,13 +13,14 @@ services:
       nproc: 5000
     labels:
       - traefik.enable=true
-      - traefik.http.routers.whoami.rule=Host(`www.minersonline.uk`) || Host(`minersonline.uk`)
-      - traefik.http.routers.whoami.entrypoints=websecure
+      - traefik.http.routers.nameless.rule=Host(`www.minersonline.uk`) || Host(`minersonline.uk`)
+      - traefik.http.routers.nameless.entrypoints=websecure
+      - traefik.http.services.nameless.loadbalancer.server.port=8080
       # TLS for wildcard domain
-      - traefik.http.routers.whoami.tls=true
-      - traefik.http.routers.whoami.tls.certresolver=letsencrypt
-      - traefik.http.routers.whoami.tls.domains[0].main=minersonline.uk
-      - traefik.http.routers.whoami.tls.domains[0].sans=*.minersonline.uk
+      - traefik.http.routers.nameless.tls=true
+      - traefik.http.routers.nameless.tls.certresolver=letsencrypt
+      - traefik.http.routers.nameless.tls.domains[0].main=minersonline.uk
+      - traefik.http.routers.nameless.tls.domains[0].sans=*.minersonline.uk
     restart: unless-stopped
     networks:
       - traefik
