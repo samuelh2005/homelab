@@ -2,7 +2,6 @@ services:
   nginx:
     image: namelessmc/nginx:v2.1
     ports: ['8080:8080']
-    user: '1000'
     volumes:
       - ./web:/data
     depends_on: [php]
@@ -13,7 +12,6 @@ services:
     ulimits:
       nofile: 50000
       nproc: 5000
-    security_opt: ['no-new-privileges:true']
     labels:
       - traefik.enable=true
       - traefik.http.routers.whoami.rule=Host(`www.minersonline.uk`) || Host(`minersonline.uk`) || Host(`setup.minersonline.uk`)
@@ -29,7 +27,6 @@ services:
 
   php:
     image: namelessmc/php:v2.1
-    user: '1000'
     volumes:
       - ./web:/data
       - target: /tmp
@@ -45,12 +42,10 @@ services:
     ulimits:
       nofile: 5000
       nproc: 5000
-    security_opt: ['no-new-privileges:true']
     restart: unless-stopped
 
   db:
     image: mariadb
-    user: '1000'
     volumes:
       - ./db:/var/lib/mysql
     environment:
