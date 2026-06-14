@@ -45,7 +45,7 @@ services:
     labels:
       - traefik.enable=true
       # Match ANY subdomain under your domain
-      - traefik.http.routers.fallback.rule=HostRegexp(`{subdomain:.+}.minersonline.uk`)
+      - traefik.http.routers.fallback.rule=HostRegexp(`^.+\.minersonline\.uk$`)
       - traefik.http.routers.fallback.entrypoints=websecure
       # Make sure it only triggers if nothing else matched
       - traefik.http.routers.fallback.priority=1
