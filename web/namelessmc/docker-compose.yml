@@ -12,7 +12,6 @@ services:
       nofile: 50000
       nproc: 5000
     labels:
-      # www domain
       - traefik.enable=true
       - traefik.http.routers.nameless.rule=Host(`www.minersonline.uk`)
       - traefik.http.routers.nameless.entrypoints=websecure
@@ -21,15 +20,6 @@ services:
       - traefik.http.routers.nameless.tls.certresolver=letsencrypt
       - traefik.http.routers.nameless.tls.domains[0].main=minersonline.uk
       - traefik.http.routers.nameless.tls.domains[0].sans=*.minersonline.uk
-      # Redirect bare domain -> www
-      - traefik.http.routers.nameless-apex.rule=Host(`minersonline.uk`)
-      - traefik.http.routers.nameless-apex.entrypoints=websecure
-      - traefik.http.routers.nameless-apex.tls=true
-      - traefik.http.routers.nameless-apex.tls.certresolver=letsencrypt
-      - traefik.http.routers.nameless-apex.middlewares=www-redirect
-      - traefik.http.middlewares.www-redirect.redirectregex.regex=^https?://minersonline\.uk(/.*)?$
-      - traefik.http.middlewares.www-redirect.redirectregex.replacement=https://www.minersonline.uk$${1}
-      - traefik.http.middlewares.www-redirect.redirectregex.permanent=true
     restart: unless-stopped
     networks:
       - traefik
