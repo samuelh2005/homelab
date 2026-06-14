@@ -16,6 +16,7 @@ services:
       - --entrypoints.websecure.address=:443
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
+      - --traefik.docker.network=traefik
       - --certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL}
       - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
       - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare
@@ -24,19 +25,44 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - traefik
+
   whoami:
     image: traefik/whoami
     labels:
       - traefik.enable=true
-      - traefik.http.routers.whoami.rule=Host(`whoami.localhost`)
-      - traefik.http.routers.whoami.rule=Host(`whoami.minersonline.uk`)
+      - traefik.http.routers.whoami.rule=Host(`whoami.localhost`) || Host(`whoami.minersonline.uk`)
       - traefik.http.routers.whoami.entrypoints=websecure
+      # TLS for wildcard domain
       - traefik.http.routers.whoami.tls=true
       - traefik.http.routers.whoami.tls.certresolver=letsencrypt
       - traefik.http.routers.whoami.tls.domains[0].main=minersonline.uk
       - traefik.http.routers.whoami.tls.domains[0].sans=*.minersonline.uk
     networks:
       - traefik
+
+  # ---------- FALLBACK ----------
+  fallback:
+    image: traefik/whoami
+    labels:
+      - traefik.enable=true
+      # Match ANY subdomain under your domain
+      - traefik.http.routers.fallback.rule=HostRegexp(`{subdomain:.+}.minersonline.uk`)
+      - traefik.http.routers.fallback.entrypoints=websecure
+      # Make sure it only triggers if nothing else matched
+      - traefik.http.routers.fallback.priority=1
+      # TLS for wildcard domain
+      - traefik.http.routers.fallback.tls=true
+      - traefik.http.routers.fallback.tls.certresolver=letsencrypt
+      - traefik.http.routers.fallback.tls.domains[0].main=minersonline.uk
+      - traefik.http.routers.fallback.tls.domains[0].sans=*.minersonline.uk
+      # Redirect everything to apex domain
+      - traefik.http.routers.fallback.middlewares=fallback-redirect
+      - traefik.http.middlewares.fallback-redirect.redirectregex.regex=^https://.*$
+      - traefik.http.middlewares.fallback-redirect.redirectregex.replacement=https://www.minersonline.uk
+      - traefik.http.middlewares.fallback-redirect.redirectregex.permanent=true
+    networks:
+      - traefik
+
 networks:
   traefik:
     name: traefik
