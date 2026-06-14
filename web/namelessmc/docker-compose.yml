@@ -13,6 +13,7 @@ services:
       nproc: 5000
     labels:
       - traefik.enable=true
+      - traefik.docker.network=traefik
       - traefik.http.routers.nameless.rule=Host(`www.minersonline.uk`)
       - traefik.http.routers.nameless.entrypoints=websecure
       - traefik.http.services.nameless.loadbalancer.server.port=8080
