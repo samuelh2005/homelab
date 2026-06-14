@@ -101,8 +101,8 @@ try = [
 
 [forced-hosts]
 # Configure your forced hosts here.
-"gone" = [
-    "lobby"
+"modded-creative.mc.minersonline.uk" = [
+    "modded-creative"
 ]
 
 [advanced]
