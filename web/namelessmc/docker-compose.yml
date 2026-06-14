@@ -24,6 +24,7 @@ services:
     restart: unless-stopped
     networks:
       - traefik
+      - namelessmc
 
   php:
     image: namelessmc/php:v2.1
@@ -43,6 +44,8 @@ services:
       nofile: 5000
       nproc: 5000
     restart: unless-stopped
+    networks:
+      - namelessmc
 
   db:
     image: mariadb
@@ -54,7 +57,11 @@ services:
       MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
       MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     restart: unless-stopped
+    networks:
+      - namelessmc
 
 networks:
+  namelessmc:
+    name: namelessmc
   traefik:
     external: true
