@@ -15,19 +15,28 @@ services:
       - --entrypoints.web.http.redirections.entrypoint.scheme=https
       - --entrypoints.websecure.address=:443
       - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
       - --certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL}
       - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
       - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare
     volumes:
       - ./letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - traefik
   whoami:
     image: traefik/whoami
     labels:
-      - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"
-      - "traefik.http.routers.whoami.rule=Host(`whoami.minersonline.uk`)"
+      - traefik.enable=true
+      - traefik.http.routers.whoami.rule=Host(`whoami.localhost`)
+      - traefik.http.routers.whoami.rule=Host(`whoami.minersonline.uk`)
       - traefik.http.routers.whoami.entrypoints=websecure
       - traefik.http.routers.whoami.tls=true
       - traefik.http.routers.whoami.tls.certresolver=letsencrypt
       - traefik.http.routers.whoami.tls.domains[0].main=minersonline.uk
       - traefik.http.routers.whoami.tls.domains[0].sans=*.minersonline.uk
+    networks:
+      - traefik
+networks:
+  traefik:
+    name: traefik
