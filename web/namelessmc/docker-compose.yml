@@ -14,7 +14,7 @@ services:
       nproc: 5000
     labels:
       - traefik.enable=true
-      - traefik.http.routers.whoami.rule=Host(`www.minersonline.uk`) || Host(`minersonline.uk`) || Host(`setup.minersonline.uk`)
+      - traefik.http.routers.whoami.rule=Host(`www.minersonline.uk`) || Host(`minersonline.uk`)
       - traefik.http.routers.whoami.entrypoints=websecure
       # TLS for wildcard domain
       - traefik.http.routers.whoami.tls=true
