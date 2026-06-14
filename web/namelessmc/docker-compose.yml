@@ -12,11 +12,11 @@ services:
       nofile: 50000
       nproc: 5000
     labels:
+      # www domain
       - traefik.enable=true
-      - traefik.http.routers.nameless.rule=Host(`www.minersonline.uk`) || Host(`minersonline.uk`)
+      - traefik.http.routers.nameless.rule=Host(`www.minersonline.uk`)
       - traefik.http.routers.nameless.entrypoints=websecure
       - traefik.http.services.nameless.loadbalancer.server.port=8080
-      # TLS for wildcard domain
       - traefik.http.routers.nameless.tls=true
       - traefik.http.routers.nameless.tls.certresolver=letsencrypt
       - traefik.http.routers.nameless.tls.domains[0].main=minersonline.uk
