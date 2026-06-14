@@ -26,8 +26,8 @@ services:
     labels:
       - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"
       - "traefik.http.routers.whoami.rule=Host(`whoami.minersonline.uk`)"
-      - traefik.http.routers.app.entrypoints=websecure
-      - traefik.http.routers.app.tls=true
-      - traefik.http.routers.app.tls.certresolver=letsencrypt
-      - traefik.http.routers.app.tls.domains[0].main=minersonline.uk
-      - traefik.http.routers.app.tls.domains[0].sans=*.minersonline.uk
+      - traefik.http.routers.whoami.entrypoints=websecure
+      - traefik.http.routers.whoami.tls=true
+      - traefik.http.routers.whoami.tls.certresolver=letsencrypt
+      - traefik.http.routers.whoami.tls.domains[0].main=minersonline.uk
+      - traefik.http.routers.whoami.tls.domains[0].sans=*.minersonline.uk
