@@ -2,5 +2,5 @@
 *.env
 *secret.txt
 web/traefik/letsencrypt
-web/namelessmc/db
-web/namelessmc/web
+web/azuriom/db
+web/azuriom/web
