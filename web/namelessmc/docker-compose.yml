@@ -14,7 +14,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=traefik
-      - traefik.http.routers.nameless.rule=Host(`www.minersonline.uk`)
+      - traefik.http.routers.nameless.rule=Host(`www.minersonline.uk`) || Host(`minersonline.uk`)
       - traefik.http.routers.nameless.entrypoints=websecure
       - traefik.http.services.nameless.loadbalancer.server.port=8080
       - traefik.http.routers.nameless.tls=true
