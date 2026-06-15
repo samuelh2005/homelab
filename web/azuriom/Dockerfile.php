@@ -8,7 +8,7 @@ RUN apt-get update \
         curl \
         libzip-dev \
         unzip \
-    && docker-php-ext-install -j"$(nproc)" bcmath zip \
+    && docker-php-ext-install -j"$(nproc)" bcmath zip pdo_mysql \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /usr/src/azuriom-template \
