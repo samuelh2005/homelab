@@ -6,7 +6,6 @@ services:
       - ./src:/var/www/html:ro
     restart: unless-stopped
     networks:
-      - traefik
       - mccms
 
   nginx:
