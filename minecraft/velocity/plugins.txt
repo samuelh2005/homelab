@@ -1,2 +1,4 @@
 https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/velocity
 https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/velocity
+https://cdn.modrinth.com/data/gG7VFbG0/versions/9MFZMaVD/TAB%20v6.1.0.jar?mr_download_reason=standalone
+https://cdn.modrinth.com/data/Vebnzrzj/versions/BmxJvHsa/LuckPerms-Velocity-5.5.53.jar?mr_download_reason=standalone

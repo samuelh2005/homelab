@@ -2,3 +2,5 @@
 *.env
 *secret.txt
 web/traefik/letsencrypt
+minecraft/mariadb-data
+minecraft/lobby/data

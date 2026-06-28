@@ -1,4 +1,33 @@
 services:
+  mariadb:
+    image: mariadb:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mariadb_root_password
+      # Do not create a database, each plugin should create its own database, if needed.
+      MYSQL_DATABASE: ""
+      MYSQL_USER: ""
+      MYSQL_PASSWORD: ""
+    volumes:
+      - ./mariadb-data:/var/lib/mysql
+    secrets:
+      - mariadb_root_password
+    networks:
+      - minecraft
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+    ports:
+      - '8080:80'
+    depends_on:
+      - mariadb
+    networks:
+      - minecraft
+
   proxy:
     image: itzg/mc-proxy:latest
     restart: unless-stopped
@@ -6,6 +35,9 @@ services:
       TYPE: "VELOCITY"
       ICON: "https://github.com/miners-online/.github/blob/main/profile/logos/favicon-64x64.png?raw=true"
       PLUGINS_FILE: "/config/plugins.txt"
+
+      CFG_PROXY_SECRET_FILE: "/run/secrets/velocity_forwarding_secret"
+      CFG_LUCKPERMS_DB_PASSWORD_FILE: "/run/secrets/luckperms_db_password"
     volumes:
       - ./velocity:/config
     ports:
@@ -14,6 +46,7 @@ services:
       - '19132:19132/tcp' # Geyser listener
       - '19132:19132/udp' # Geyser listener
     secrets:
+      - luckperms_db_password
       - velocity_forwarding_secret
     networks:
       - minecraft
@@ -23,28 +56,35 @@ services:
     restart: unless-stopped
     environment:
       EULA: "TRUE"
-      TYPE: "FABRIC"
-      VERSION: "26.1.2"
+      TYPE: "PAPER"
+      VERSION: "26.2"
       USE_MEOWICE_FLAGS: "true"
       MAX_MEMORY: "2G"
+
+      ONLINE_MODE: "false"
 
       REPLACE_ENV_IN_PLACE: "true"
       REPLACE_ENV_VARIABLE_PREFIX: "CFG_"
 
       CFG_PROXY_SECRET_FILE: "/run/secrets/velocity_forwarding_secret"
+      CFG_LUCKPERMS_DB_PASSWORD_FILE: "/run/secrets/luckperms_db_password"
 
       REMOVE_OLD_MODS: "true"
       MODRINTH_PROJECTS: |
-        fabric-api:E1mjhYMF
-        fabricproxy-lite:CsEpiziv
-        ferrite-core:d5ddUdiB
-        lithium:GiCfpS6V
-        styled-chat:N8ASEpbM
+        ezeconomy:P1VJLPCm
+        journeymap:bAWWKeif
+        luckperms:MBSY8toc
+        placeholderapi:UmbIiI5H
+        tab-bridge:WVZjoaLN
+        vaultunlocked:cLNipSgw
     depends_on:
       - proxy
     volumes:
-      - ./lobby-config:/config
+      - ./lobby/config:/config
+      - ./lobby/plugin-configs:/plugins
+      - ./lobby/data:/data
     secrets:
+      - luckperms_db_password
       - velocity_forwarding_secret
     networks:
       - minecraft
@@ -53,5 +93,9 @@ networks:
   minecraft:
 
 secrets:
+  mariadb_root_password:
+    file: ./secrets/mariadb_root_password_secret.txt
   velocity_forwarding_secret:
-    file: ./velocity_forwarding_secret.txt
+    file: ./secrets/velocity_forwarding_secret.txt
+  luckperms_db_password:
+    file: ./secrets/luckperms_db_password_secret.txt
