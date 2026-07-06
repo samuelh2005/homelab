@@ -55,44 +55,44 @@ services:
     networks:
       - minecraft
 
-  lobby:
-    image: itzg/minecraft-server:latest
-    restart: unless-stopped
-    environment:
-      EULA: "TRUE"
-      TYPE: "PAPER"
-      VERSION: "26.2"
-      USE_MEOWICE_FLAGS: "true"
-      MAX_MEMORY: "2G"
+  # lobby:
+  #   image: itzg/minecraft-server:latest
+  #   restart: unless-stopped
+  #   environment:
+  #     EULA: "TRUE"
+  #     TYPE: "PAPER"
+  #     VERSION: "26.2"
+  #     USE_MEOWICE_FLAGS: "true"
+  #     MAX_MEMORY: "2G"
 
-      ONLINE_MODE: "false"
+  #     ONLINE_MODE: "false"
 
-      REPLACE_ENV_IN_PLACE: "true"
-      REPLACE_ENV_VARIABLE_PREFIX: "CFG_"
+  #     REPLACE_ENV_IN_PLACE: "true"
+  #     REPLACE_ENV_VARIABLE_PREFIX: "CFG_"
 
-      CFG_PROXY_SECRET_FILE: "/run/secrets/velocity_forwarding_secret"
-      CFG_LUCKPERMS_DB_PASSWORD_FILE: "/run/secrets/luckperms_db_password"
+  #     CFG_PROXY_SECRET_FILE: "/run/secrets/velocity_forwarding_secret"
+  #     CFG_LUCKPERMS_DB_PASSWORD_FILE: "/run/secrets/luckperms_db_password"
 
-      REMOVE_OLD_MODS: "true"
-      MODRINTH_PROJECTS: |
-        ezeconomy:P1VJLPCm
-        journeymap:bAWWKeif
-        luckperms:MBSY8toc
-        placeholderapi:UmbIiI5H
-        tab-bridge:WVZjoaLN
-        vaultunlocked:cLNipSgw
-    depends_on:
-      - proxy
-      - mariadb
-    volumes:
-      - ./lobby/config:/config
-      - ./lobby/plugin-configs:/plugins
-      - ./lobby/data:/data
-    secrets:
-      - luckperms_db_password
-      - velocity_forwarding_secret
-    networks:
-      - minecraft
+  #     REMOVE_OLD_MODS: "true"
+  #     MODRINTH_PROJECTS: |
+  #       ezeconomy:P1VJLPCm
+  #       journeymap:11xZAIkx
+  #       luckperms:MBSY8toc
+  #       placeholderapi:UmbIiI5H
+  #       tab-bridge:WVZjoaLN
+  #       vaultunlocked:cLNipSgw
+  #   depends_on:
+  #     - proxy
+  #     - mariadb
+  #   volumes:
+  #     - ./lobby/config:/config
+  #     - ./lobby/plugin-configs:/plugins
+  #     - ./lobby/data:/data
+  #   secrets:
+  #     - luckperms_db_password
+  #     - velocity_forwarding_secret
+  #   networks:
+  #     - minecraft
 
 networks:
   minecraft:
