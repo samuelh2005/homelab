@@ -1,0 +1,32 @@
+services:
+  kamailio:
+    image: ghcr.io/kamailio/kamailio:6.1.4-trixie
+    container_name: kamailio
+    restart: unless-stopped
+    ports:
+      - "5060:5060/udp"
+      - "5060:5060/tcp"
+      - "5061:5061/tcp"
+    volumes:
+      - ./kamailio:/etc/kamailio:ro
+    environment:
+      - KAMAILIO_DB_HOST=db
+      - KAMAILIO_DB_USER=${KAMAILIO_DB_USER}
+      - KAMAILIO_DB_PASSWORD=${KAMAILIO_DB_PASSWORD}
+      - KAMAILIO_DB_NAME=${KAMAILIO_DB_NAME}
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:latest
+    container_name: kamailio-db
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=${KAMAILIO_DB_ROOT_PASSWORD}
+      # Do not create the default DB, `kamdbctl create` will create it. NO MYSQL_DATABASE variable here!
+      - MYSQL_USER=${KAMAILIO_DB_USER}
+      - MYSQL_PASSWORD=${KAMAILIO_DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db_data:/var/lib/mysql

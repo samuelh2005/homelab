@@ -1,6 +1,5 @@
 *.pem
 *.env
 *secret.txt
-web/traefik/letsencrypt
-minecraft/mariadb-data
-minecraft/lobby/data
+voice/db_data
+voice/kamailio/kamailio-local.cfg
