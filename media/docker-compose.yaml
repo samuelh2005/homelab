@@ -1,0 +1,33 @@
+services:
+  mediamtx:
+    image: bluenviron/mediamtx:1-ffmpeg
+    container_name: mediamtx
+    restart: unless-stopped
+    networks:
+      - media
+    ports:
+      - "8554:8554"
+      - "1935:1935"
+      - "8888:8888"
+      - "8889:8889"
+      - "8892:8892"
+      - "8890:8890/udp"
+      - "8189:8189/udp"
+      - "8892:8892/udp"
+    environment:
+      - MTX_RTSPTRANSPORTS=tcp
+    volumes:
+      - ./mediamtx.yml:/mediamtx.yml:ro
+  aggregator:
+    image: ghcr.io/samuelh2005/aggregator:latest
+    container_name: aggregator
+    restart: unless-stopped
+    networks:
+      - media
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./aggregator.yml:/app/config.yaml:ro
+
+networks:
+  media:

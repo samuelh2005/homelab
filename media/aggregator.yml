@@ -1,0 +1,18 @@
+server:
+  bind: "0.0.0.0:8080"
+  epg_refresh_interval: 300
+channels:
+  - id: "channel.news1"
+    name: "News Channel 1"
+    logo: "https://cdn.example.com/logos/news1.png"
+    group: "News"
+
+    media:
+      type: "hls"
+      source: "http://localhost:8888/news1/index.m3u8"
+
+    epg:
+      type: "xmltv"
+      source: "https://provider.example.com/news1.xml"
+
+    tvg_shift: 0
