@@ -21,4 +21,4 @@ services:
 
 networks:
   tunnel_net:
-    external: ture
+    external: true
