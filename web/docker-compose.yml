@@ -1,7 +1,6 @@
 services:
   docuwiki:
     image: dokuwiki/dokuwiki:latest
-    user: "1000:1000"
     environment:
       - PHP_TIMEZONE=Europe/London
     volumes:
