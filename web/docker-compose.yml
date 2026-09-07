@@ -6,6 +6,17 @@ services:
     volumes:
       - ./dokuwiki_data:/storage
       - ./.htaccess:/var/www/.htaccess
-    ports:
-      - "80:8080"
+    networks:
+      - tunnel_net:
+          external: true
     restart: unless-stopped
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared_tunnel
+    restart: unless-stopped
+    env_file: .env
+    command: tunnel --no-autoupdate run
+    networks:
+      - tunnel_net:
+          external: true
