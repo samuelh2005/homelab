@@ -1,0 +1,4 @@
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} ^minersonline\.uk$ [NC]
+RewriteRule ^(.*)$ https://www.minersonline.uk/$1 [R=301,L]
