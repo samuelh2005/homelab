@@ -1,0 +1,11 @@
+services:
+  docuwiki:
+    image: dokuwiki/dokuwiki:latest
+    user: "1000:1000"
+    environment:
+      - PHP_TIMEZONE=Europe/London
+    volumes:
+      - ./dokuwiki_data:/storage
+    ports:
+      - "80:80"
+    restart: unless-stopped
