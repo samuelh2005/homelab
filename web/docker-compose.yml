@@ -7,8 +7,7 @@ services:
       - ./dokuwiki_data:/storage
       - ./.htaccess:/var/www/.htaccess
     networks:
-      - tunnel_net:
-          external: true
+      - tunnel_net
     restart: unless-stopped
 
   cloudflared:
@@ -18,5 +17,8 @@ services:
     env_file: .env
     command: tunnel --no-autoupdate run
     networks:
-      - tunnel_net:
-          external: true
+      - tunnel_net
+
+networks:
+  tunnel_net:
+    external: ture
