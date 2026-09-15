@@ -40,17 +40,9 @@ listen:
       /admin: ejabberd_web_admin
       /.well-known/acme-challenge: ejabberd_acme
       /upload: mod_http_upload
-  -
-    port: 5443
-    ip: "::"
-    module: ejabberd_http
-    tls: true
-    request_handlers:
-      /admin: ejabberd_web_admin
       /api: mod_http_api
       /bosh: mod_bosh
       /captcha: ejabberd_captcha
-      /upload: mod_http_upload
       /ws: ejabberd_http_ws
       /oauth: ejabberd_oauth
 
