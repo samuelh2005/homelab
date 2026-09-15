@@ -15,7 +15,7 @@ chat.minersonline.uk:80 {
 }
 
 chat.minersonline.uk:443 {
-    reverse_proxy http://ejabberd:5443
+    reverse_proxy https://ejabberd:5443
 }
 
 conference.chat.minersonline.uk:80 {
@@ -23,7 +23,7 @@ conference.chat.minersonline.uk:80 {
 }
 
 conference.chat.minersonline.uk:443 {
-    reverse_proxy http://ejabberd:5443
+    reverse_proxy https://ejabberd:5443
 }
 
 proxy.chat.minersonline.uk:80 {
@@ -31,7 +31,7 @@ proxy.chat.minersonline.uk:80 {
 }
 
 proxy.chat.minersonline.uk:443 {
-    reverse_proxy http://ejabberd:5443
+    reverse_proxy https://ejabberd:5443
 }
 
 pubsub.chat.minersonline.uk:80 {
@@ -39,7 +39,7 @@ pubsub.chat.minersonline.uk:80 {
 }
 
 pubsub.chat.minersonline.uk:443 {
-    reverse_proxy http://ejabberd:5443
+    reverse_proxy https://ejabberd:5443
 }
 
 upload.chat.minersonline.uk:80 {
@@ -47,5 +47,5 @@ upload.chat.minersonline.uk:80 {
 }
 
 upload.chat.minersonline.uk:443 {
-    reverse_proxy http://ejabberd:5443
+    reverse_proxy https://ejabberd:5443
 }
