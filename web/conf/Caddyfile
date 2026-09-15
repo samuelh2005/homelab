@@ -1,0 +1,19 @@
+files.minersonline.uk {
+    reverse_proxy http://100.111.154.208:8086
+}
+
+phpmyadmin.minersonline.uk {
+    reverse_proxy http://phpmyadmin:80
+}
+
+api.minersonline.uk {
+    reverse_proxy http://server-announce:3000
+}
+
+chat.minersonline.uk:80 {
+    reverse_proxy http://ejabberd:5280
+}
+
+chat.minersonline.uk:443 {
+    reverse_proxy http://ejabberd:5443
+}

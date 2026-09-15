@@ -1,13 +1,23 @@
 services:
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    container_name: cloudflared_tunnel
+  caddy:
+    image: caddy:latest
     restart: unless-stopped
-    env_file: .env
-    command: tunnel --no-autoupdate run
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./conf:/etc/caddy
+      - ./site:/srv
+      - caddy_data:/data
+      - caddy_config:/config
     networks:
       - tunnel_net
 
 networks:
   tunnel_net:
     external: true
+
+volumes:
+  caddy_data:
+  caddy_config:
