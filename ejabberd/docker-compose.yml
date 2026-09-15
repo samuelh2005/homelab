@@ -1,0 +1,40 @@
+services:
+  ejabberd:
+    image: ghcr.io/processone/ejabberd:latest
+    container_name: ejabberd
+    restart: unless-stopped
+
+    environment:
+      # Sets the ${HOST} macro used in conf/ejabberd.yml, and also
+      # controls which admin JID gets granted admin rights below.
+      - EJABBERD_MACRO_HOST=${EJABBERD_MACRO_HOST}
+      - EJABBERD_MACRO_ADMIN=${EJABBERD_MACRO_ADMIN}
+      # Auto-registers the admin account on first start and grants it
+      # admin rights (only supported on the ghcr.io/processone/ejabberd image).
+      - REGISTER_ADMIN_PASSWORD=${REGISTER_ADMIN_PASSWORD}
+      # Runs every time the container starts: prints registered users
+      # and current status, useful for confirming things came up fine.
+      - CTL_ON_START=registered_users ${EJABBERD_MACRO_HOST} ;
+                     status
+
+    ports:
+      - "5222:5222"   # XMPP client (c2s)
+      - "5269:5269"   # XMPP federation (s2s) - only needed for federating with other servers
+      - "5280:5280"   # HTTP (WebAdmin, BOSH, etc. - plain)
+      - "5443:5443"   # HTTPS (WebAdmin, API, CAPTCHA, OAuth, Websockets, BOSH - TLS)
+      # - "1883:1883" # MQTT - uncomment if you enable the MQTT listener
+      # - "3478:3478/udp"   # STUN, if enabled in ejabberd.yml
+      # - "50000-50099:50000-50099/udp" # TURN relay range, if enabled
+
+    volumes:
+      - ./conf:/opt/ejabberd/conf:ro
+      - ./database:/opt/ejabberd/database
+      - ./logs:/opt/ejabberd/logs
+      - ./upload:/opt/ejabberd/upload
+
+    healthcheck:
+      test: ["CMD-SHELL", "netstat -nl | grep -q 5222"]
+      start_period: 15s
+      interval: 10s
+      timeout: 5s
+      retries: 12
