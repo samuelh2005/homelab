@@ -1,15 +1,4 @@
 services:
-  docuwiki:
-    image: dokuwiki/dokuwiki:latest
-    environment:
-      - PHP_TIMEZONE=Europe/London
-    volumes:
-      - ./dokuwiki_data:/storage
-      - ./.htaccess:/var/www/.htaccess
-    networks:
-      - tunnel_net
-    restart: unless-stopped
-
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: cloudflared_tunnel

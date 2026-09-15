@@ -1,8 +1,0 @@
-services:
-  routr:
-    image: fonoster/routr-one:latest
-    environment:
-      EXTERNAL_ADDRS: ${DOCKER_HOST_ADDRESS}
-    network_mode: host
-    volumes:
-      - ./db_data:/var/lib/postgresql/data
