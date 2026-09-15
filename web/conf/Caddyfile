@@ -17,3 +17,35 @@ chat.minersonline.uk:80 {
 chat.minersonline.uk:443 {
     reverse_proxy http://ejabberd:5443
 }
+
+conference.chat.minersonline.uk:80 {
+    reverse_proxy http://ejabberd:5280
+}
+
+conference.chat.minersonline.uk:443 {
+    reverse_proxy http://ejabberd:5443
+}
+
+proxy.chat.minersonline.uk:80 {
+    reverse_proxy http://ejabberd:5280
+}
+
+proxy.chat.minersonline.uk:443 {
+    reverse_proxy http://ejabberd:5443
+}
+
+pubsub.chat.minersonline.uk:80 {
+    reverse_proxy http://ejabberd:5280
+}
+
+pubsub.chat.minersonline.uk:443 {
+    reverse_proxy http://ejabberd:5443
+}
+
+upload.chat.minersonline.uk:80 {
+    reverse_proxy http://ejabberd:5280
+}
+
+upload.chat.minersonline.uk:443 {
+    reverse_proxy http://ejabberd:5443
+}
