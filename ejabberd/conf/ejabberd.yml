@@ -51,6 +51,7 @@ s2s_use_starttls: optional
 acl:
   admin:
     user: ADMIN
+    user: samuelh2005@chat.minersonline.uk
   local:
     user_regexp: ""
   loopback:
