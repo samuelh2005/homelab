@@ -11,5 +11,10 @@ api.minersonline.uk {
 }
 
 mail-admin.minersonline.uk {
-    reverse_proxy https://stalwart:443
+    reverse_proxy https://stalwart:443 {
+        transport http {
+                tls
+                tls_insecure_skip_verify
+        }
+    }
 }
