@@ -10,22 +10,6 @@ api.minersonline.uk {
     reverse_proxy http://server-announce:3000
 }
 
-chat.minersonline.uk {
-    reverse_proxy http://ejabberd:5280
-}
-
-conference.chat.minersonline.uk {
-    reverse_proxy http://ejabberd:5280
-}
-
-proxy.chat.minersonline.uk {
-    reverse_proxy http://ejabberd:5280
-}
-
-pubsub.chat.minersonline.uk {
-    reverse_proxy http://ejabberd:5280
-}
-
-upload.chat.minersonline.uk {
-    reverse_proxy http://ejabberd:5280
+mail-admin.minersonline.uk {
+    reverse_proxy http://stalwart:8080
 }

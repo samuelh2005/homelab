@@ -4,8 +4,8 @@ services:
     container_name: stalwart
     restart: unless-stopped
     ports:
-      - "443:443"
-      - "8080:8080"
+      # - "443:443"
+      # - "8080:8080" -- uses proxy instead
       - "25:25"
       - "587:587"
       - "465:465"
@@ -17,3 +17,6 @@ services:
     volumes:
       - ./stalwart-etc:/etc/stalwart
       - ./stalwart-data:/var/lib/stalwart
+networks:
+  tunnel_net:
+    external: true
