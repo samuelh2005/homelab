@@ -36,3 +36,12 @@ autodiscover.minersonline.uk {
         }
     }
 }
+
+mta-sts.minersonline.uk {
+    reverse_proxy https://stalwart:443 {
+        transport http {
+            tls
+            tls_insecure_skip_verify
+        }
+    }
+}
