@@ -11,5 +11,5 @@ api.minersonline.uk {
 }
 
 mail-admin.minersonline.uk {
-    reverse_proxy http://stalwart:8080
+    reverse_proxy https://stalwart:443
 }
