@@ -17,6 +17,8 @@ services:
     volumes:
       - ./stalwart-etc:/etc/stalwart
       - ./stalwart-data:/var/lib/stalwart
+    environment:
+      - STALWART_PUBLIC_URL=https://mail-admin.minersonline.uk
 networks:
   tunnel_net:
     external: true
