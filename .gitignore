@@ -5,3 +5,4 @@ voice/db_data
 web/dokuwiki_data
 mail/stalwart-etc
 mail/stalwart-data
+voice/postgres-data
